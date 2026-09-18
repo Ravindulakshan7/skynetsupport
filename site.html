@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="si" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SKYNET - V2RAY • FAST • SECURE | Official Support & Store</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Orbitron for Futuristic Logo + Inter for clean UI -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@600;700;800;900&family=Noto+Sans+Sinhala:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans Sinhala', 'sans-serif'],
+            logo: ['Orbitron', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            skynet: {
+              black: '#000000',      /* Deep Dark Black */
+              card: '#080808',       /* Very dark grey for cards */
+              border: '#1a1a1a',     /* Subtle dark border */
+              accent: '#0ea5e9',     /* Darker Sky Blue */
+              surface: '#121212'
+            }
+          },
+          boxShadow: {
+            'glow-sky': '0 0 25px -3px rgba(14, 165, 233, 0.3)',
+            'glow-card': '0 10px 30px -10px rgba(14, 165, 233, 0.15)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Styling & Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #000000;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #0ea5e9;
+    }
+
+    .skynet-title {
+      letter-spacing: 0.18em;
+      text-shadow: 0 0 20px rgba(255,255,255,0.4);
+    }
+
+    /* Card glow border */
+    .border-glow-sky {
+      border: 1px solid rgba(14, 165, 233, 0.3);
+      box-shadow: 0 0 15px rgba(14, 165, 233, 0.15);
+    }
+  </style>
+</head>
+
+<body class="bg-skynet-black text-slate-200 font-sans selection:bg-sky-500 selection:text-black">
+
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-skynet-black/90 border-b border-skynet-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo representation -->
+      <a href="javascript:void(0)" onclick="navigateTo('home')" class="flex items-center gap-3 group">
+        <div class="flex flex-col">
+          <span class="font-logo text-2xl sm:text-3xl font-black tracking-widest text-white group-hover:text-sky-400 transition-colors skynet-title">
+            SKY<span class="text-sky-400">NET</span>
+          </span>
+          <span class="text-[8px] font-mono text-slate-400 tracking-[0.3em] font-semibold uppercase">
+            V2RAY • FAST • SECURE
+          </span>
+        </div>
+      </a>
+
+      <!-- Navigation Tabs (SPA Navigation) -->
+      <nav class="hidden lg:flex items-center gap-1 p-1.5 rounded-2xl bg-skynet-surface/80 border border-skynet-border">
+        <button onclick="navigateTo('home')" id="nav-btn-home" class="nav-link px-4 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all text-sky-400 bg-skynet-card shadow-sm">
+          <i class="fa-solid fa-house-signal mr-1.5"></i> Home
+        </button>
+        <button onclick="navigateTo('plans')" id="nav-btn-plans" class="nav-link px-4 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all text-slate-400 hover:text-white">
+          <i class="fa-solid fa-tags mr-1.5"></i> Pricing Plans
+        </button>
+        <button onclick="navigateTo('packages')" id="nav-btn-packages" class="nav-link px-4 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all text-slate-400 hover:text-white">
+          <i class="fa-solid fa-sim-card mr-1.5"></i> Supported ISPs
+        </button>
+        <button onclick="navigateTo('setup')" id="nav-btn-setup" class="nav-link px-4 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all text-slate-400 hover:text-white">
+          <i class="fa-solid fa-download mr-1.5"></i> Setup Guides
+        </button>
+        <button onclick="navigateTo('support')" id="nav-btn-support" class="nav-link px-4 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all text-slate-400 hover:text-white">
+          <i class="fa-solid fa-headset mr-1.5"></i> Support & FAQ
+        </button>
+      </nav>
+
+      <!-- Right Header Tools -->
+      <div class="flex items-center gap-3">
+        <!-- Quick Order / Telegram Contact -->
+        <a href="https://t.me/skynet_int" target="_blank" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-black font-extrabold text-xs tracking-wider uppercase transition-all shadow-glow-sky transform hover:-translate-y-0.5">
+          <i class="fa-brands fa-telegram text-sm"></i>
+          <span>Telegram</span>
+        </a>
+
+        <!-- Mobile Menu Hamburger -->
+        <button onclick="toggleMobileNav()" class="lg:hidden p-2.5 rounded-xl border border-skynet-border text-slate-300">
+          <i class="fa-solid fa-bars-staggered text-lg"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileNav" class="hidden lg:hidden bg-skynet-card border-b border-skynet-border p-4 space-y-2 text-sm">
+      <button onclick="navigateTo('home')" class="w-full text-left py-2.5 px-3 rounded-lg text-sky-400 font-semibold flex items-center gap-2">
+        <i class="fa-solid fa-house-signal"></i> Home
+      </button>
+      <button onclick="navigateTo('plans')" class="w-full text-left py-2.5 px-3 rounded-lg text-slate-300 hover:text-sky-400 font-semibold flex items-center gap-2">
+        <i class="fa-solid fa-tags"></i> Pricing Plans (1 Month)
+      </button>
+      <button onclick="navigateTo('packages')" class="w-full text-left py-2.5 px-3 rounded-lg text-slate-300 hover:text-sky-400 font-semibold flex items-center gap-2">
+        <i class="fa-solid fa-sim-card"></i> Supported Packages
+      </button>
+      <button onclick="navigateTo('setup')" class="w-full text-left py-2.5 px-3 rounded-lg text-slate-300 hover:text-sky-400 font-semibold flex items-center gap-2">
+        <i class="fa-solid fa-download"></i> Using Apps & Setup
+      </button>
+      <button onclick="navigateTo('support')" class="w-full text-left py-2.5 px-3 rounded-lg text-slate-300 hover:text-sky-400 font-semibold flex items-center gap-2">
+        <i class="fa-solid fa-headset"></i> Support & FAQ
+      </button>
+      <div class="pt-2 flex gap-2">
+        <a href="https://wa.me/94763813667" target="_blank" class="w-1/2 py-2.5 rounded-xl bg-emerald-600 text-center text-xs font-bold text-white flex items-center justify-center gap-1.5">
+          <i class="fa-brands fa-whatsapp"></i> WhatsApp
+        </a>
+        <a href="https://t.me/skynet_int" target="_blank" class="w-1/2 py-2.5 rounded-xl bg-sky-500 text-center text-xs font-bold text-black flex items-center justify-center gap-1.5">
+          <i class="fa-brands fa-telegram"></i> Telegram
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- ==================== SECTION 1: HOME ==================== -->
+    <section id="view-home" class="page-view space-y-16">
+      
+      <!-- HERO AREA -->
+      <div class="relative rounded-3xl p-8 sm:p-14 overflow-hidden border border-skynet-border bg-skynet-black text-center shadow-glow-card">
+        <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-4xl mx-auto space-y-6">
+          
+          <!-- Server Network Specs Badge -->
+          <div class="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-4 px-4 py-2 rounded-full border border-sky-500/30 bg-sky-500/5 text-xs font-semibold text-sky-300">
+            <span class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>10Gbps Vultr Singapore Backbone</span>
+            </span>
+            <span class="hidden sm:inline text-slate-600">•</span>
+            <span>Cloudflare Anycast SSL/TLS Edge</span>
+            <span class="hidden sm:inline text-slate-600">•</span>
+            <span class="text-emerald-400">99.9% Uptime</span>
+          </div>
+
+          <!-- Futuristic Brand Title -->
+          <div class="py-2 space-y-2">
+            <h1 class="font-logo text-5xl sm:text-8xl font-extrabold tracking-[0.18em] text-white skynet-title">
+              SKY<span class="text-sky-400">NET</span>
+            </h1>
+            <div class="flex items-center justify-center gap-2 text-xs sm:text-base font-mono tracking-[0.45em] text-slate-400 uppercase">
+              <span>V2RAY</span>
+              <span class="text-sky-400">•</span>
+              <span>FAST</span>
+              <span class="text-sky-400">•</span>
+              <span>SECURE</span>
+            </div>
+          </div>
+
+          <p class="text-slate-300 text-sm sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            ශ්‍රී ලංකාවේ ඕනෑම සීමිත Data Package එකක් High-Speed Unlimited Internet බවට පරිවර්තනය කරන ප්‍රමුඛතම V2ray Premium සේවාව.
+          </p>
+
+          <!-- CTAs -->
+          <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+            <button onclick="navigateTo('plans')" class="px-7 py-3.5 rounded-2xl bg-sky-400 hover:bg-sky-300 text-black font-extrabold text-sm tracking-wider uppercase transition-all shadow-glow-sky transform hover:-translate-y-1 flex items-center gap-2">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span>මිල ගණන් බලන්න (Plans)</span>
+            </button>
+            <button onclick="navigateTo('setup')" class="px-6 py-3.5 rounded-2xl bg-skynet-card hover:bg-slate-800 border border-skynet-border text-slate-200 font-semibold text-sm transition-all flex items-center gap-2">
+              <i class="fa-solid fa-mobile-screen"></i>
+              <span>App Setup කරගන්නේ කෙසේද?</span>
+            </button>
+          </div>
+
+          <!-- Feature Cards Grid -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pt-8 text-left">
+            <div class="p-4 rounded-2xl bg-skynet-surface border border-skynet-border">
+              <i class="fa-solid fa-bolt text-sky-400 text-lg mb-2"></i>
+              <div class="text-xs text-slate-400 font-medium">Ultra-Low Ping</div>
+              <div class="text-sm sm:text-base font-bold text-white">Gaming Ready</div>
+            </div>
+            <div class="p-4 rounded-2xl bg-skynet-surface border border-skynet-border">
+              <i class="fa-solid fa-film text-purple-400 text-lg mb-2"></i>
+              <div class="text-xs text-slate-400 font-medium">4K Streaming</div>
+              <div class="text-sm sm:text-base font-bold text-white">Netflix / YouTube</div>
+            </div>
+            <div class="p-4 rounded-2xl bg-skynet-surface border border-skynet-border">
+              <i class="fa-solid fa-shield-virus text-emerald-400 text-lg mb-2"></i>
+              <div class="text-xs text-slate-400 font-medium">Cloudflare Anycast</div>
+              <div class="text-sm sm:text-base font-bold text-white">Anti-DDoS & SSL</div>
+            </div>
+            <div class="p-4 rounded-2xl bg-skynet-surface border border-skynet-border">
+              <i class="fa-solid fa-headset text-amber-400 text-lg mb-2"></i>
+              <div class="text-xs text-slate-400 font-medium">24/7 Dedicated</div>
+              <div class="text-sm sm:text-base font-bold text-white">Quick Support</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="p-8 sm:p-12 rounded-3xl bg-skynet-surface border border-skynet-border relative overflow-hidden">
+        <div class="absolute right-0 top-0 w-80 h-80 bg-sky-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto space-y-5">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
+            <span>🌿 තාක්ෂණික පැහැදිලි කිරීම</span>
+          </div>
+
+          <h2 class="text-2xl sm:text-3xl font-bold text-white flex items-center gap-2">
+            <span>🍃 මොකක්ද මේ V2ray Unlimited Data සීන් එක?</span>
+            <span class="text-sky-400">🤔</span>
+          </h2>
+
+          <div class="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed bg-skynet-black p-6 sm:p-8 rounded-2xl border border-skynet-border font-sans">
+            <p class="font-semibold text-white">සරළවම කිව්වොත් කතාව මෙහෙමයි:</p>
+            <p>
+              ඔයා සාමාන්‍යයෙන් Zoom, TikTok හරි Social Media Package එකක් හරි ඇක්ටිව් කරගත්තම Data යන්නේ ඒ අදාළ ඇප්ස් වලට විතරයි නේද? Normal Browsing වලටයි බර Downloads වලටයි වෙනමම සල්ලි ගෙවලා Data දාන්න වෙනවා. 💸
+            </p>
+            <div class="p-4 rounded-xl bg-sky-950/30 border border-sky-500/30 text-sky-200">
+              <p>
+                හැබැයි අපි ලබාදෙන <strong class="text-white">Special Config File එක (V2ray Code එක)</strong> හරහා, ඔයාගේ ඒ සීමිත Package එක <span class="underline decoration-sky-400 font-bold">100% ක්ම Any-Site Normal Data</span> විදිහට පාවිච්චි කරන්න පුළුවන්! 🌿
+              </p>
+            </div>
+            <p class="text-emerald-300 font-medium">
+              YouTube, Netflix, Social Apps, Online Gaming සහ ඕනෑම Heavy Download එකකට Full Speed එකෙන්ම කිසිම Limit එකක් නැතුව Surf කරන්නයි තියෙන්නේ. 🚀
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== SECTION 2: PRICING PLANS ==================== -->
+    <section id="view-plans" class="page-view hidden space-y-10">
+      
+      <div class="text-center space-y-3 max-w-2xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 text-sky-400 text-xs font-semibold border border-sky-500/20">
+          <i class="fa-solid fa-bolt"></i> HIGH-SPEED 10Gbps SERVERS
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">PRICING PLANS (1 MONTH)</h2>
+        <p class="text-sm text-slate-400">ඔබගේ භාවිතයට ගැළපෙන V2ray Plan එක තෝරාගෙන සැනෙකින් සක්‍රිය කරගන්න.</p>
+      </div>
+
+      <!-- Pricing Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Plan 1: 100GB -->
+        <div class="p-6 rounded-3xl bg-skynet-card border border-skynet-border hover:border-slate-600 transition-all duration-300 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Starter</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-slate-300">1 Month</span>
+            </div>
+            <div>
+              <div class="text-3xl font-black text-white">100 GB</div>
+              <div class="text-2xl font-extrabold text-sky-400 mt-1">Rs. 200 <span class="text-xs text-slate-500 font-normal">/ මසකට</span></div>
+            </div>
+            <ul class="space-y-2 text-xs text-slate-300 pt-2 border-t border-skynet-border">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Singapore High-Speed Node</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> YouTube, TikTok, Downloads</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> No Speed Drop (Full Speed)</li>
+            </ul>
+          </div>
+          <div class="pt-6">
+            <button onclick="orderPlan('100GB 1 Month', 'Rs.200')" class="w-full py-3 rounded-xl bg-skynet-surface hover:bg-sky-500 hover:text-black border border-skynet-border text-white text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2">
+              <i class="fa-brands fa-whatsapp text-sm"></i> මිලදී ගන්න (Order)
+            </button>
+          </div>
+        </div>
+
+        <!-- Plan 2: 200GB -->
+        <div class="p-6 rounded-3xl bg-skynet-card border border-skynet-border hover:border-slate-600 transition-all duration-300 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Standard</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-slate-300">1 Month</span>
+            </div>
+            <div>
+              <div class="text-3xl font-black text-white">200 GB</div>
+              <div class="text-2xl font-extrabold text-sky-400 mt-1">Rs. 300 <span class="text-xs text-slate-500 font-normal">/ මසකට</span></div>
+            </div>
+            <ul class="space-y-2 text-xs text-slate-300 pt-2 border-t border-skynet-border">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Singapore 10Gbps Port</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> 4K Video Streaming Support</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Low Latency for Gaming</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Quick Setup Assistance</li>
+            </ul>
+          </div>
+          <div class="pt-6">
+            <button onclick="orderPlan('200GB 1 Month', 'Rs.300')" class="w-full py-3 rounded-xl bg-skynet-surface hover:bg-sky-500 hover:text-black border border-skynet-border text-white text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2">
+              <i class="fa-brands fa-whatsapp text-sm"></i> මිලදී ගන්න (Order)
+            </button>
+          </div>
+        </div>
+
+        <!-- Plan 3: 300GB -->
+        <div class="p-6 rounded-3xl bg-skynet-card border border-skynet-border hover:border-sky-500/50 transition-all duration-300 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Heavy User</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-slate-300">1 Month</span>
+            </div>
+            <div>
+              <div class="text-3xl font-black text-white">300 GB</div>
+              <div class="text-2xl font-extrabold text-sky-400 mt-1">Rs. 400 <span class="text-xs text-slate-500 font-normal">/ මසකට</span></div>
+            </div>
+            <ul class="space-y-2 text-xs text-slate-300 pt-2 border-t border-skynet-border">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> High Priority Traffic Routing</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Perfect for PC & Heavy Games</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Cloudflare Anycast SSL Encrypted</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Premium 24/7 Support</li>
+            </ul>
+          </div>
+          <div class="pt-6">
+            <button onclick="orderPlan('300GB 1 Month', 'Rs.400')" class="w-full py-3 rounded-xl bg-skynet-surface hover:bg-sky-500 hover:text-black border border-skynet-border text-white text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2">
+              <i class="fa-brands fa-whatsapp text-sm"></i> මිලදී ගන්න (Order)
+            </button>
+          </div>
+        </div>
+
+        <!-- Plan 4: Unlimited (POPULAR) -->
+        <div class="p-6 rounded-3xl bg-gradient-to-b from-skynet-card to-skynet-surface border-2 border-sky-400 shadow-glow-sky flex flex-col justify-between relative">
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-sky-400 text-black px-4 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest">
+            MOST POPULAR 🚀
+          </div>
+          <div class="space-y-4 pt-2">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-bold uppercase tracking-wider text-sky-300">Ultimate Pro</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-sky-950 text-sky-300 border border-sky-800">1 Month</span>
+            </div>
+            <div>
+              <div class="text-3xl font-black text-white">UNLIMITED</div>
+              <div class="text-2xl font-extrabold text-sky-400 mt-1">Rs. 500 <span class="text-xs text-slate-400 font-normal">/ මසකට</span></div>
+            </div>
+            <ul class="space-y-2 text-xs text-slate-200 pt-2 border-t border-skynet-border">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sky-400"></i> සීමාවකින් තොරව (Unlimited Data)</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sky-400"></i> Top-tier Singapore 10Gbps Server</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sky-400"></i> Cloudflare Zero-Downtime Tunnel</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sky-400"></i> VIP Priority WhatsApp Helpdesk</li>
+            </ul>
+          </div>
+          <div class="pt-6">
+            <button onclick="orderPlan('Unlimited 1 Month', 'Rs.500')" class="w-full py-3.5 rounded-xl bg-sky-400 hover:bg-sky-300 text-black text-xs font-black uppercase tracking-wider transition-all shadow-glow-sky flex items-center justify-center gap-2">
+              <i class="fa-brands fa-whatsapp text-sm"></i> Unlimited ගන්න (Order)
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Payment & Security Note -->
+      <div class="p-6 rounded-2xl bg-skynet-card border border-skynet-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-building-columns text-xl text-sky-400"></i>
+          <div>
+            <strong class="text-white">ගෙවීම් ක්‍රම (Payment Methods):</strong>
+            <span> Bank Transfer (Commercial, Sampath, BOC, People's), EzCash, mCash පිළිගනු ලැබේ.</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>Instant Config Delivery on Telegram/WhatsApp</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== SECTION 3: ISP PACKAGES ==================== -->
+    <section id="view-packages" class="page-view hidden space-y-8">
+      
+      <div class="text-center space-y-3 max-w-2xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">SUPPORTED PACKAGES</h2>
+        <p class="text-sm text-slate-400">
+          ඔබගේ ජාලයට අදාළ පහත සඳහන් ඕනෑම Package එකක් සඳහා අපගේ V2ray Configs 100% ක් සාර්ථකව ක්‍රියා කරයි.
+        </p>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-2">
+        <button onclick="filterISP('all')" id="filter-btn-all" class="isp-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-sky-400 text-black">
+          All Networks
+        </button>
+        <button onclick="filterISP('hutch')" id="filter-btn-hutch" class="isp-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-skynet-card border border-skynet-border text-slate-300 hover:text-white">
+          HUTCH
+        </button>
+        <button onclick="filterISP('dialog')" id="filter-btn-dialog" class="isp-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-skynet-card border border-skynet-border text-slate-300 hover:text-white">
+          DIALOG
+        </button>
+        <button onclick="filterISP('airtel')" id="filter-btn-airtel" class="isp-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-skynet-card border border-skynet-border text-slate-300 hover:text-white">
+          AIRTEL
+        </button>
+        <button onclick="filterISP('slt')" id="filter-btn-slt" class="isp-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-skynet-card border border-skynet-border text-slate-300 hover:text-white">
+          SLT MOBITEL / FIBER
+        </button>
+      </div>
+
+      <!-- Packages Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="ispCardsGrid">
+
+        <!-- HUTCH Cards -->
+        <div class="isp-card p-5 rounded-2xl bg-skynet-card border border-skynet-border space-y-3" data-isp="hutch">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold tracking-wider uppercase bg-orange-500/10 text-orange-400 border border-orange-500/20">HUTCH</span>
+            <span class="text-[11px] text-emerald-400 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> Working 100%</span>
+          </div>
+          <h3 class="text-base font-bold text-white">HUTCH TIKTOK</h3>
+          <p class="text-xs text-slate-400">TikTok Package එකෙන් සම්පූර්ණ අන්තර්ජාලයම Unlimited පාවිච්චි කරන්න.</p>
+        </div>
+
+        <div class="isp-card p-5 rounded-2xl bg-skynet-card border border-skynet-border space-y-3" data-isp="hutch">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold tracking-wider uppercase bg-orange-500/10 text-orange-400 border border-orange-500/20">HUTCH</span>
+            <span class="text-[11px] text-emerald-400 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> Working 100%</span>
+          </div>
+          <h3 class="text-base font-bold text-white">HUTCH Zoom</h3>
+          <p class="text-xs text-slate-400">Zoom / Work & Learn package bypass with ultra-low ping.</p>
+        </div>
+
+        <div class="isp-card p-5 rounded-2xl bg-skynet-card border border-skynet-border space-y-3" data-isp="hutch">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold tracking-wider uppercase bg-orange-500/10 text-orange-400 border border-orange-500/20">HUTCH</span>
+            <span class="text-[11px] text-emerald-400 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> Working 100%</span>
+          </div>
+          <h3 class="text-base font-bold text-white">HUTCH SOCIAL</h3>
+          <p class="text-xs text-slate-400">Social Media Bundle (FB, WhatsApp, Insta) bypass for all websites.</p>
+        </div>
+
+        <div class="isp-card p-5 rounded-2xl bg-skynet-card border border-skynet-border space-y-3" data-isp="hutch">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold tracking-wider uppercase bg-orange-500/10 text-orange-400 border border-orange-500/20">HUTCH</span>
+            <span class="text-[11px] text-sky-400 flex items-center gap-1"><i class="fa-solid fa-bolt"></i> Ultra Fast</span>
+          </div>
+          <h3 class="text-base font-bold text-white">HUTCH 169</h3>
+          <p class="text-xs text-slate-400">Hutch 169 combo package support with Cloudflare tunneling.</p>
+        </div>
+
+        <!-- DIALOG Cards -->
+        <div class="isp-card p-5 rounded-2xl bg-skynet-card border border-skynet-border space-y-3" data-isp="dialog">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold tracking-wider uppercase bg-red-500/10 text-red-400 border border-red-500/20">DIALOG</span>
+            <span class="text-[11px] text-emerald-400 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> Working 100%</span>
+          </div>
+          <h3 class="text-base font-bold text-white">DIALOG SOCIAL</h3>
+          <p class="text-xs text-slate-400">Dialog Fun Blaster & Social media bypass with Port 443 TLS support.</p>
+        </div>
+
+        <div class="isp-card p-5 rounded-2xl bg-skynet-card border border-skynet-border space-y-3" data-isp="dialog">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold tracking-wider uppercase bg-red-500/10 text-red-400 border border-red-500/20">DIALOG</span>
+            <span class="text-[11px] text-emerald-400 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> Working 100%</span>
+          </div>
+          <h3 class="text-base font-bold text-white">DIALOG TIKTOK</h3>
+          <p class="text-xs text-slate-400">Dialog TikTok unlimited plan full bypass for downloads & games.</p>
+        </div>
+
+        <div class="isp-card p-5 rounded-2xl bg-skynet-card border border-skynet-border space-y-3" data-isp="dialog">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold tracking-wider uppercase bg-red-500/10 text-red-400 border border-red-500/20">DIALOG</span>
+            <span class="text-[11px] text-sky-400 flex items-center gap-1"><i class="fa-solid fa-wifi"></i> Router Support</span>
+          </div>
+          <h3 class="text-base font-bold text-white">DIALOG zoom(router)</h3>
+          <p class="text-xs text-slate-400">Dialog 4G Home Broadband Work & Learn / Zoom package for Routers & Mobile.</p>
+        </div>
+
+        <!-- AIRTEL Cards -->
+        <div class="isp-card p-5 rounded-2xl bg-skynet-card border border-skynet-border space-y-3" data-isp="airtel">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold tracking-wider uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">AIRTEL</span>
+            <span class="text-[11px] text-emerald-400 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> Working 100%</span>
+          </div>
+          <h3 class="text-base font-bold text-white">AIRTEL TIKTOK</h3>
+          <p class="text-xs text-slate-400">Airtel unlimited TikTok plan to all-website normal data.</p>
+        </div>
+
+        <div class="isp-card p-5 rounded-2xl bg-skynet-card border border-skynet-border space-y-3" data-isp="airtel">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold tracking-wider uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">AIRTEL</span>
+            <span class="text-[11px] text-emerald-400 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> Working 100%</span>
+          </div>
+          <h3 class="text-base font-bold text-white">AIRTEL YOUTUBE PACKAGE</h3>
+          <p class="text-xs text-slate-400">Airtel 4G YouTube package convert into open web traffic.</p>
+        </div>
+
+        <div class="isp-card p-5 rounded-2xl bg-skynet-card border border-skynet-border space-y-3" data-isp="airtel">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold tracking-wider uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">AIRTEL</span>
+            <span class="text-[11px] text-sky-400 flex items-center gap-1"><i class="fa-solid fa-bolt"></i> Low Ping</span>
+          </div>
+          <h3 class="text-base font-bold text-white">Airtel All Social Package</h3>
+          <p class="text-xs text-slate-400">Airtel social combo fully supported with zero packet drop.</p>
+        </div>
+
+        <!-- SLT Cards -->
+        <div class="isp-card p-5 rounded-2xl bg-skynet-card border border-skynet-border space-y-3" data-isp="slt">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold tracking-wider uppercase bg-blue-500/10 text-blue-400 border border-blue-500/20">SLT MOBITEL</span>
+            <span class="text-[11px] text-emerald-400 flex items-center gap-1"><i class="fa-solid fa-bolt-lightning"></i> Fiber & Router</span>
+          </div>
+          <h3 class="text-base font-bold text-white">SLT Zoom (Router & Fiber)</h3>
+          <p class="text-xs text-slate-400">SLT Fibre සහ 4G Router වල Zoom / Meet add-ons සඳහා high-speed bypass.</p>
+        </div>
+
+        <div class="isp-card p-5 rounded-2xl bg-skynet-card border border-skynet-border space-y-3" data-isp="slt">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold tracking-wider uppercase bg-blue-500/10 text-blue-400 border border-blue-500/20">SLT MOBITEL</span>
+            <span class="text-[11px] text-emerald-400 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> Working 100%</span>
+          </div>
+          <h3 class="text-base font-bold text-white">SLT Entertainment</h3>
+          <p class="text-xs text-slate-400">SLT Entertainment / YouTube bundles open to all downloads & websites.</p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ==================== SECTION 4: SETUP GUIDES ==================== -->
+    <section id="view-setup" class="page-view hidden space-y-8">
+      
+      <div class="text-center space-y-3 max-w-2xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">USING APP & SETUP GUIDES</h2>
+        <p class="text-sm text-slate-400">ඔබගේ Device එකට අදාළ App එක Install කරගෙන පහත වීඩියෝ මඟපෙන්වීම් බලන්න.</p>
+      </div>
+
+      <!-- App Switcher Tabs -->
+      <div class="flex flex-wrap justify-center gap-3 border-b border-skynet-border pb-4">
+        <button onclick="switchSetupTab('android')" id="setuptab-btn-android" class="setup-tab-btn px-5 py-2.5 rounded-xl font-bold text-xs transition-all bg-sky-400 text-black flex items-center gap-2">
+          <i class="fa-brands fa-android text-base"></i> Android (NetMod)
+        </button>
+        <button onclick="switchSetupTab('apple')" id="setuptab-btn-apple" class="setup-tab-btn px-5 py-2.5 rounded-xl font-bold text-xs transition-all bg-skynet-card text-slate-300 border border-skynet-border hover:text-white flex items-center gap-2">
+          <i class="fa-brands fa-apple text-base"></i> Apple / iOS (NPV Tunnel)
+        </button>
+        <button onclick="switchSetupTab('pc')" id="setuptab-btn-pc" class="setup-tab-btn px-5 py-2.5 rounded-xl font-bold text-xs transition-all bg-skynet-card text-slate-300 border border-skynet-border hover:text-white flex items-center gap-2">
+          <i class="fa-brands fa-windows text-base"></i> PC / Windows (NetMod)
+        </button>
+      </div>
+
+      <!-- Android Guide Panel -->
+      <div id="setup-panel-android" class="setup-panel block space-y-6">
+        <div class="p-8 rounded-3xl bg-skynet-card border border-skynet-border max-w-4xl mx-auto space-y-6">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl">
+                <i class="fa-brands fa-android"></i>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white">NetMod Syna (Android)</h3>
+                <p class="text-xs text-slate-400">Official Client for V2Ray / VLESS WebSocket</p>
+              </div>
+            </div>
+            <a href="https://play.google.com/store/apps/details?id=com.netmod.syna" target="_blank" class="px-5 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-black font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 transition-all">
+              <i class="fa-brands fa-google-play"></i>
+              <span>Download on Play Store</span>
+            </a>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-skynet-surface border border-skynet-border text-xs text-slate-300 space-y-2">
+            <div class="flex items-center gap-2 text-sky-400 font-bold">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Note on Android Setup:</span>
+            </div>
+            <p class="text-slate-400">
+              Play Store එකෙන් NetMod Syna ඇප් එක download කරගන්න. අපි Telegram හෝ WhatsApp හරහා දෙන V2ray Link එක Copy කර App එකේ <strong>Import from Clipboard</strong> ලබාදී Connect කරන්න.
+            </p>
+          </div>
+
+          <!-- Android Setup Big Button -->
+          <div class="pt-4 border-t border-skynet-border">
+            <a href="https://youtube.com/shorts/2T-agHHurWM?feature=share" target="_blank" class="block w-full py-5 rounded-2xl bg-red-600 hover:bg-red-500 text-white font-black text-sm sm:text-base uppercase tracking-widest text-center transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)] flex items-center justify-center gap-3">
+              <i class="fa-brands fa-youtube text-2xl sm:text-3xl"></i>
+              <span>Watch Tutorial on YouTube</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Apple / iOS Guide Panel -->
+      <div id="setup-panel-apple" class="setup-panel hidden space-y-6">
+        <div class="p-8 rounded-3xl bg-skynet-card border border-skynet-border max-w-4xl mx-auto space-y-6">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-2xl">
+                <i class="fa-brands fa-apple"></i>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white">NPV Tunnel (iOS / iPhone)</h3>
+                <p class="text-xs text-slate-400">High performance V2ray Client for iOS</p>
+              </div>
+            </div>
+            <a href="https://apps.apple.com/lk/app/npv-tunnel/id1629465476" target="_blank" class="px-5 py-2.5 rounded-xl bg-purple-500 hover:bg-purple-400 text-white font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 transition-all">
+              <i class="fa-brands fa-app-store-ios"></i>
+              <span>Download on App Store</span>
+            </a>
+          </div>
+
+          <!-- Video Tutorial Button Alternative -->
+          <div class="pt-4 border-t border-skynet-border">
+            <a href="https://youtube.com/shorts/gu4WrwxZpY0?si=IERznMYPjAMsvn2U" target="_blank" class="block w-full py-5 rounded-2xl bg-red-600 hover:bg-red-500 text-white font-black text-sm sm:text-base uppercase tracking-widest text-center transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)] flex items-center justify-center gap-3">
+              <i class="fa-brands fa-youtube text-2xl sm:text-3xl"></i>
+              <span>Watch iOS Setup Tutorial</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PC / Windows Guide Panel -->
+      <div id="setup-panel-pc" class="setup-panel hidden space-y-6">
+        <div class="p-8 rounded-3xl bg-skynet-card border border-skynet-border max-w-4xl mx-auto space-y-6">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-2xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 text-2xl">
+                <i class="fa-brands fa-windows"></i>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white">NetMod VPN Client (Windows PC)</h3>
+                <p class="text-xs text-slate-400">Desktop Client for Windows 10 & 11</p>
+              </div>
+            </div>
+            <a href="https://netmod-vpn-client.en.uptodown.com/windows" target="_blank" class="px-5 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-black font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 transition-all">
+              <i class="fa-solid fa-download"></i>
+              <span>Download for Windows</span>
+            </a>
+          </div>
+
+          <!-- Video Tutorial Button Alternative -->
+          <div class="pt-4 border-t border-skynet-border">
+            <a href="https://youtu.be/i86weaU7_M8?si=JNC8GOiHs38MD3My" target="_blank" class="block w-full py-5 rounded-2xl bg-red-600 hover:bg-red-500 text-white font-black text-sm sm:text-base uppercase tracking-widest text-center transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)] flex items-center justify-center gap-3">
+              <i class="fa-brands fa-youtube text-2xl sm:text-3xl"></i>
+              <span>Watch PC Setup Tutorial</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== SECTION 5: SUPPORT & FAQ ==================== -->
+    <section id="view-support" class="page-view hidden space-y-10">
+      
+      <div class="text-center space-y-3 max-w-2xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">SUPPORT & KNOWLEDGEBASE</h2>
+        <p class="text-sm text-slate-400">ඔබට ඇති ඕනෑම ගැටලුවකට හෝ තාක්ෂණික සහය සඳහා අපව සම්බන්ධ කරගන්න.</p>
+      </div>
+
+      <!-- Quick Contact Buttons -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+        <a href="https://wa.me/94763813667?text=Hello%20SkyNet%20Support,%20I%20need%20help%20with%20my%20V2ray%20Connection" target="_blank" class="p-6 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 hover:border-emerald-400 transition-all flex items-center gap-4 group">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+            <i class="fa-brands fa-whatsapp"></i>
+          </div>
+          <div>
+            <span class="text-[10px] uppercase font-bold text-emerald-400">Instant Help</span>
+            <div class="text-lg font-bold text-white">WhatsApp Support</div>
+            <p class="text-xs text-slate-400">Direct engineer assistance</p>
+          </div>
+        </a>
+
+        <a href="https://t.me/skynet_int" target="_blank" class="p-6 rounded-2xl bg-sky-950/40 border border-sky-500/30 hover:border-sky-400 transition-all flex items-center gap-4 group">
+          <div class="w-12 h-12 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+            <i class="fa-brands fa-telegram"></i>
+          </div>
+          <div>
+            <span class="text-[10px] uppercase font-bold text-sky-400">Community & Bot</span>
+            <div class="text-lg font-bold text-white">Telegram Channel</div>
+            <p class="text-xs text-slate-400">Daily updates & config releases</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Quick Simulated Ping Diagnostic -->
+      <div class="max-w-2xl mx-auto p-6 rounded-3xl bg-skynet-card border border-skynet-border space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-gauge-high text-sky-400"></i>
+            <span class="text-sm font-bold text-white">Server Live Latency Check</span>
+          </div>
+          <button onclick="runLatencyTest()" class="text-xs px-3 py-1.5 rounded-lg bg-skynet-surface border border-skynet-border text-sky-400 hover:border-sky-400 transition-all">
+            <i class="fa-solid fa-rotate-right" id="pingSpinner"></i> Test Ping
+          </button>
+        </div>
+        <div class="grid grid-cols-2 gap-3 text-center">
+          <div class="p-3 bg-skynet-surface rounded-xl border border-skynet-border">
+            <span class="text-[10px] text-slate-500 uppercase font-bold">Singapore Node 01</span>
+            <div class="text-xl font-black text-emerald-400 mt-1" id="pingNode1">32 ms</div>
+          </div>
+          <div class="p-3 bg-skynet-surface rounded-xl border border-skynet-border">
+            <span class="text-[10px] text-slate-500 uppercase font-bold">Cloudflare Edge Colombo</span>
+            <div class="text-xl font-black text-sky-400 mt-1" id="pingNode2">14 ms</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Accordion -->
+      <div class="max-w-3xl mx-auto space-y-3">
+        <div class="faq-item border border-skynet-border rounded-2xl bg-skynet-card overflow-hidden">
+          <button onclick="toggleFaqItem(this)" class="w-full px-6 py-4 text-left flex items-center justify-between gap-4 font-semibold text-white">
+            <span>Dialog හෝ Hutch එකේ Time out වැටුනොත් මොකද කරන්නේ?</span>
+            <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-desc hidden px-6 pb-5 text-xs text-slate-400 leading-relaxed border-t border-skynet-border/50 pt-3">
+            Dialog Zoom / FB පැකේජ් වලදී Port 80 Filter කරන බැවින් Port 443 (TLS) තෝරාගත යුතුය. එසේත් නොමැතිනම් Phone එකේ Flight mode On කර තත්පර 5කට පසු Off කර IP එක Refresh කරගන්න.
+          </div>
+        </div>
+
+        <div class="faq-item border border-skynet-border rounded-2xl bg-skynet-card overflow-hidden">
+          <button onclick="toggleFaqItem(this)" class="w-full px-6 py-4 text-left flex items-center justify-between gap-4 font-semibold text-white">
+            <span>Config එක Devices කීයකට පාවිච්චි කරන්න පුළුවන්ද?</span>
+            <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-desc hidden px-6 pb-5 text-xs text-slate-400 leading-relaxed border-t border-skynet-border/50 pt-3">
+            අපි කිසිදු IP Limit එකක් සිදු කරන්නේ නැත. එබැවින් ඔබට අවශ්‍ය පරිදි උපාංග (Devices) කිහිපයකම මෙම සේවාව බාධාවකින් තොරව භාවිතා කළ හැක.
+          </div>
+        </div>
+
+        <div class="faq-item border border-skynet-border rounded-2xl bg-skynet-card overflow-hidden">
+          <button onclick="toggleFaqItem(this)" class="w-full px-6 py-4 text-left flex items-center justify-between gap-4 font-semibold text-white">
+            <span>V2ray භාවිතයෙන් SIM එක Block වේද?</span>
+            <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-desc hidden px-6 pb-5 text-xs text-slate-400 leading-relaxed border-t border-skynet-border/50 pt-3">
+            නැත. අප භාවිතා කරන්නේ Cloudflare Universal Anycast SSL Encrypted Handshake බැවින් ISP එකට පෙනෙන්නේ ඔබගේ සක්‍රිය Package එකේ නීත්‍යානුකූල Data ගමනාගමනයක් ලෙස පමණි.
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="border-t border-skynet-border bg-skynet-card/80 py-10 mt-16 text-center text-xs text-slate-500 space-y-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center gap-4">
+      
+      <!-- Social & Follow Links -->
+      <div class="flex items-center gap-5">
+        <a href="https://t.me/SkyNETCLOUD" target="_blank" class="w-10 h-10 rounded-full bg-skynet-surface border border-skynet-border flex items-center justify-center text-slate-400 hover:text-sky-400 hover:border-sky-400 transition-all">
+          <i class="fa-brands fa-telegram text-lg"></i>
+        </a>
+        <a href="https://whatsapp.com/channel/0029VbAh1gu3wtbAQf8seo0L" target="_blank" class="w-10 h-10 rounded-full bg-skynet-surface border border-skynet-border flex items-center justify-center text-slate-400 hover:text-emerald-400 hover:border-emerald-400 transition-all">
+          <i class="fa-brands fa-whatsapp text-lg"></i>
+        </a>
+        <a href="https://www.tiktok.com/@skynet_int?_r=1&_t=ZS-99phiJbA8mr" target="_blank" class="w-10 h-10 rounded-full bg-skynet-surface border border-skynet-border flex items-center justify-center text-slate-400 hover:text-white hover:border-white transition-all">
+          <i class="fa-brands fa-tiktok text-lg"></i>
+        </a>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <span class="font-logo font-bold text-white tracking-widest skynet-title">SKY<span class="text-sky-400">NET</span></span>
+        <span>• High Speed V2ray Gateway</span>
+      </div>
+      <div>
+        <span>&copy; 2026 SKYNET. FAST • SECURE • RELIABLE</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal for Instant Order Generation -->
+  <div id="orderModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-skynet-card border border-sky-500/40 rounded-3xl p-6 sm:p-8 max-w-md w-full space-y-5 shadow-glow-sky text-left">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-cart-shopping text-sky-400"></i>
+          <span>Order Confirmation</span>
+        </h3>
+        <button onclick="closeOrderModal()" class="text-slate-400 hover:text-white text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-skynet-surface border border-skynet-border space-y-2">
+        <div class="text-xs text-slate-400 uppercase font-semibold">Selected Plan:</div>
+        <div class="text-2xl font-black text-sky-400" id="modalPlanName">Unlimited 1 Month</div>
+        <div class="text-lg font-bold text-white" id="modalPlanPrice">Rs. 500</div>
+      </div>
+
+      <p class="text-xs text-slate-400">
+        WhatsApp හෝ Telegram හරහා අපව සම්බන්ධ කරගෙන විනාඩි 2ක් ඇතුළත ඔබගේ V2ray Config File එක ලබාගන්න.
+      </p>
+
+      <div class="flex flex-col gap-2 pt-2">
+        <a id="modalWhatsAppBtn" href="#" target="_blank" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-2 transition-all">
+          <i class="fa-brands fa-whatsapp text-base"></i>
+          <span>Order via WhatsApp</span>
+        </a>
+        <a id="modalTelegramBtn" href="https://t.me/skynet_int" target="_blank" class="w-full py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-black font-extrabold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-2 transition-all">
+          <i class="fa-brands fa-telegram text-base"></i>
+          <span>Order via Telegram</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Navigation routing logic
+    function navigateTo(viewId) {
+      // Hide all page views
+      document.querySelectorAll('.page-view').forEach(view => {
+        view.classList.add('hidden');
+      });
+
+      // Reset all nav link styles
+      document.querySelectorAll('.nav-link').forEach(btn => {
+        btn.classList.remove('text-sky-400', 'bg-skynet-card', 'shadow-sm');
+        btn.classList.add('text-slate-400');
+      });
+
+      // Show target view
+      const target = document.getElementById(`view-${viewId}`);
+      if (target) {
+        target.classList.remove('hidden');
+      }
+
+      // Highlight active nav button
+      const activeBtn = document.getElementById(`nav-btn-${viewId}`);
+      if (activeBtn) {
+        activeBtn.classList.add('text-sky-400', 'bg-skynet-card', 'shadow-sm');
+        activeBtn.classList.remove('text-slate-400');
+      }
+
+      // Close mobile navigation drawer if open
+      document.getElementById('mobileNav').classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Toggle Mobile Navigation Drawer
+    function toggleMobileNav() {
+      const nav = document.getElementById('mobileNav');
+      nav.classList.toggle('hidden');
+    }
+
+    // Setup Guide Tabs Switcher
+    function switchSetupTab(osName) {
+      document.querySelectorAll('.setup-panel').forEach(p => p.classList.add('hidden'));
+      document.querySelectorAll('.setup-tab-btn').forEach(b => {
+        b.classList.remove('bg-sky-400', 'text-black');
+        b.classList.add('bg-skynet-card', 'text-slate-300');
+      });
+
+      const activePanel = document.getElementById(`setup-panel-${osName}`);
+      const activeBtn = document.getElementById(`setuptab-btn-${osName}`);
+
+      if (activePanel) activePanel.classList.remove('hidden');
+      if (activeBtn) {
+        activeBtn.classList.add('bg-sky-400', 'text-black');
+        activeBtn.classList.remove('bg-skynet-card', 'text-slate-300');
+      }
+    }
+
+    // ISP Package Filter
+    function filterISP(isp) {
+      document.querySelectorAll('.isp-filter-btn').forEach(btn => {
+        btn.classList.remove('bg-sky-400', 'text-black');
+        btn.classList.add('bg-skynet-card', 'text-slate-300');
+      });
+
+      const activeBtn = document.getElementById(`filter-btn-${isp}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-sky-400', 'text-black');
+        activeBtn.classList.remove('bg-skynet-card', 'text-slate-300');
+      }
+
+      const cards = document.querySelectorAll('.isp-card');
+      cards.forEach(card => {
+        if (isp === 'all' || card.getAttribute('data-isp') === isp) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    // Order Modal trigger
+    function orderPlan(plan, price) {
+      document.getElementById('modalPlanName').innerText = plan;
+      document.getElementById('modalPlanPrice').innerText = price;
+      
+      const encodedMsg = encodeURIComponent(`Hello SkyNet! I would like to purchase the ${plan} (${price}) plan. Please share the payment and setup details.`);
+      document.getElementById('modalWhatsAppBtn').href = `https://wa.me/94763813667?text=${encodedMsg}`;
+      
+      const modal = document.getElementById('orderModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeOrderModal() {
+      const modal = document.getElementById('orderModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // FAQ Item toggle
+    function toggleFaqItem(btn) {
+      const desc = btn.nextElementSibling;
+      const icon = btn.querySelector('.fa-chevron-down');
+      desc.classList.toggle('hidden');
+      icon.classList.toggle('rotate-180');
+    }
+
+    // Ping Latency Simulator
+    function runLatencyTest() {
+      const spinner = document.getElementById('pingSpinner');
+      spinner.classList.add('animate-spin');
+      
+      setTimeout(() => {
+        spinner.classList.remove('animate-spin');
+        const p1 = Math.floor(Math.random() * (36 - 28 + 1)) + 28;
+        const p2 = Math.floor(Math.random() * (18 - 11 + 1)) + 11;
+        document.getElementById('pingNode1').innerText = `${p1} ms`;
+        document.getElementById('pingNode2').innerText = `${p2} ms`;
+      }, 500);
+    }
+  </script>
+</body>
+</html>
