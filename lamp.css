@@ -125,3 +125,6 @@
 .lh canvas{-webkit-mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent),linear-gradient(to bottom,transparent,#000 8%,#000 92%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent),linear-gradient(to bottom,transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}
 
 .lh__item:has(.lh__link:hover) .lh__float,.lh__item:has(.lh__link:focus-visible) .lh__float{animation-play-state:paused}
+
+/* Keep the help text outside the animated logo area at every screen size. */
+.lamp-experience>.lh__hint{position:static;transform:none;width:auto;max-width:none;margin:12px 10px 0;line-height:1.7;text-align:center}

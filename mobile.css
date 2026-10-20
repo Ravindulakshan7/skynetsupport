@@ -1,0 +1,109 @@
+/* Mobile layout overrides; desktop styling stays in styles.css and lamp.css. */
+@media (max-width:850px){
+ .header nav{align-items:stretch;border-radius:22px;max-height:calc(100dvh - 120px);overflow-y:auto;overscroll-behavior:contain}
+ .header nav a{width:100%;min-height:48px;justify-content:flex-start;padding:12px 18px}
+ .mobile-actions button{flex:1;min-height:48px;border:1px solid #444;border-radius:999px;background:#222;color:#eee;font-size:13px;font-weight:700}
+}
+@media (max-width:600px){
+ html{scroll-padding-top:96px;scroll-padding-bottom:100px}
+ body{font-size:14px;line-height:1.8}
+ .container{width:calc(100% - 32px)}
+ .announcement{padding:8px 12px;min-height:32px;font-size:10px;letter-spacing:0;flex-wrap:wrap;gap:4px 8px;line-height:1.5}
+ .announcement a{font-size:10px;margin:0}
+ .header{width:calc(100% - 24px);top:8px;margin-top:8px;border-radius:22px}
+ .header-inner{height:64px;width:calc(100% - 24px);gap:12px}
+ .header .brand{width:134px}
+ .header nav{top:72px;left:0;right:0;padding:8px;background:#141414}
+ .menu-toggle{width:46px;height:46px;min-height:46px;min-width:46px}
+ .hero.hero-with-lamp{padding:28px 0 30px;gap:18px}
+ .hero-with-lamp h1{font-size:clamp(35px,10vw,46px);letter-spacing:-1.5px;line-height:1.16;margin-bottom:20px}
+ .hero-with-lamp .hero-description{font-size:14px;line-height:1.95}
+ .hero-with-lamp .hero-actions{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center;margin-top:24px}
+ .hero-actions .button{min-height:48px;padding:12px 21px;font-size:13px}
+ .hero-actions .text-link{min-height:48px;font-size:12px;line-height:1.6}
+ .hero-with-lamp .hero-note{font-size:11px;gap:5px 7px;margin-top:18px;line-height:1.8}
+ .hero-note .note-divider{margin-inline:4px}
+ .hero-with-lamp .lh{height:520px}
+ .lh[data-layout=compact] .lh__label{font-size:10px;line-height:1.5;letter-spacing:0}
+ .lh[data-layout=compact] .lh__float{--fx:3px!important;--fy:4px!important}
+ .lamp-experience .lh__hint{position:static;transform:none;width:auto;max-width:none;margin:10px 12px 0;font-size:11px;line-height:1.7;color:#a5a5a5}
+ .lh__nowebgl{font-size:12px;inset:43% 24%;line-height:1.8}
+ .strip-inner{gap:18px 12px;padding-block:24px}
+ .strip-inner .strip-label{font-size:10px;line-height:1.7}
+ .strip-inner .isp-brand small{font-size:10px;line-height:1.5}
+ .isp-logo{height:54px;padding:8px;border-radius:12px}
+ .section{padding-block:40px}
+ h2,.section-heading h2{font-size:28px;line-height:1.35;letter-spacing:-.7px}
+ .section-heading{gap:12px;margin-bottom:24px}
+ .section-intro,.network-picker>p:not(.picker-label),.info-note p,.steps p,.support-copy>p:not(.eyebrow),.faq details p{font-size:14px;line-height:1.95}
+ .package-picker-row .network-picker{padding:20px 16px}
+ .package-picker-row .network-picker h2{font-size:19px;line-height:1.7}
+ .package-picker-row .quick-networks a{min-height:58px;font-size:12px;padding:11px 10px}
+ .quick-networks small{font-size:10px}
+ .picker-help{font-size:12px;line-height:1.9}
+ .package-toolbar{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+ .sort-label{justify-content:space-between;width:100%;font-size:12px}
+ .sort-label select{flex:1;max-width:240px;font-size:16px;min-width:0}
+ input,select,textarea,dialog select{font-size:16px}
+ .filter-row{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+ .filter-chip{font-size:11px;min-height:48px;padding:7px 3px;border-radius:14px;line-height:1.45}
+ .results-bar{flex-wrap:wrap;font-size:11px;gap:5px;margin-block:16px}
+ .catalog-note{max-width:none;font-size:10px;text-align:left}
+ .package-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:stretch}
+ .package-card{padding:16px 13px 10px;border-radius:20px}
+ .network-name{font-size:10px;line-height:1.5}
+ .package-top{min-height:32px;margin-bottom:12px}
+ .badge{font-size:9px;line-height:1.4;padding:4px 6px}
+ .package-card h3{font-size:15px;line-height:1.55;min-height:3.1em;overflow-wrap:break-word}
+ .package-price{font-size:21px;letter-spacing:-.5px;line-height:1.4}
+ .package-price small{font-size:11px}
+ .detail-tag{font-size:11px;line-height:1.5;padding:5px 7px}
+ .package-extra summary{font-size:11px;min-height:44px}
+ .package-extra .package-note{font-size:12px;line-height:1.9}
+ .package-card .package-select{font-size:12px;min-height:48px;padding-block:10px}
+ .plan-card{padding:24px 22px}
+ .plan-period,.plan-subtext,.plan-features,.pricing-footnote{font-size:13px;line-height:1.9}
+ .plan-card .button{min-height:50px}
+ .device-tabs button{min-height:84px;padding:12px 5px}
+ .device-tabs button>span:first-of-type{font-size:12px}
+ .device-tabs small{font-size:10px}
+ .setup-content{padding:22px 18px}
+ .setup-steps li{font-size:14px;line-height:1.95}
+ .setup-caution,.troubleshoot p{font-size:13px;line-height:1.9}
+ .setup-buttons{flex-wrap:wrap}
+ .setup-buttons .button{flex:1 1 135px;min-height:48px}
+ .faq summary{font-size:14px;line-height:1.9;padding-right:20px}
+ .support-links .button{min-height:48px}
+ .slider-controls{padding:8px 6px;gap:8px}
+ .slider-dots,.slider-arrows{gap:0}
+ .slider-dots button,.slider-arrows button{width:44px;height:44px;min-width:44px}
+ .slide-counter{display:none}
+ .mobile-actions{gap:10px;padding:10px max(12px,env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));border-radius:20px 20px 0 0}
+ .mobile-actions a,.mobile-actions button{min-height:48px;font-size:13px;line-height:1.5}
+ .footer{padding-bottom:calc(110px + env(safe-area-inset-bottom))}
+ .footer>div:nth-child(2) a{min-height:44px}
+ dialog,#contact-dialog{width:calc(100% - 24px);max-height:calc(100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom));padding:30px 20px 24px;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+ dialog select{width:100%;min-width:0;max-width:100%}
+ dialog h2{font-size:25px}
+ .dialog-intro,#contact-description,.order-warning,.modal-note{font-size:13px;line-height:1.9}
+ .contact-option{padding:16px 12px;gap:12px;min-height:80px}
+ .contact-option small{font-size:12px}
+ .order-secondary{display:grid;gap:5px}
+ .order-secondary a,.order-secondary .text-link{min-height:44px}
+ body.modal-open .mobile-actions{visibility:hidden}
+ .toast{bottom:calc(86px + env(safe-area-inset-bottom));max-width:calc(100% - 24px)}
+}
+@media(max-width:379px){
+ .hero-with-lamp .hero-note .note-divider{display:none}
+ .hero-with-lamp .hero-note{max-width:270px}
+ .hero-with-lamp .lh{height:500px}
+ .lh[data-layout=compact] .lh__label{font-size:9px}
+ .package-grid{grid-template-columns:minmax(0,1fr)}
+ .package-card{padding:20px 18px 12px}
+ .package-card h3{min-height:0;font-size:18px}
+ .package-price{font-size:25px}
+ .package-price small{display:inline;margin-left:4px}
+ .package-top{min-height:0}
+ .package-extra summary,.package-card .package-select{font-size:13px}
+ .filter-chip{font-size:10px}
+}

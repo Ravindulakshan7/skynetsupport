@@ -314,7 +314,7 @@
     return;
   }
   renderer.setClearColor(0x000000, 0);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, coarse ? 1.25 : 1.75));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, coarse ? 1 : 1.75));
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.15;
@@ -446,6 +446,7 @@
   var on = true, power = 1, now = 0;
   function updatePointer(e) {
     if(paused || !visible || document.hidden) return;
+    if(e.pointerType === "touch" && !root.contains(e.target)) return;
     var r = root.getBoundingClientRect();
     ptr.clientX = e.clientX; ptr.clientY = e.clientY; ptr.pointer = true;
     ptr.x = e.clientX - r.left; ptr.y = e.clientY - r.top; ptr.active = true;
@@ -453,6 +454,9 @@
   }
   document.addEventListener('pointermove', updatePointer, { passive: true });
   document.addEventListener('pointerdown', updatePointer, { passive: true });
+  function releaseTouch(e){if(e.pointerType==='touch'){ptr.active=false;ptr.pointer=false;requestFrame();}}
+  document.addEventListener('pointerup',releaseTouch,{passive:true});
+  document.addEventListener('pointercancel',releaseTouch,{passive:true});
   document.documentElement.addEventListener('pointerleave', function () { ptr.active = false; });
   window.addEventListener('scroll', function () {
     if(ptr.active && ptr.pointer)updatePointer({clientX:ptr.clientX,clientY:ptr.clientY});
@@ -539,8 +543,13 @@
     root.dataset.visible=String(!document.hidden);glowLayer.hidden=document.hidden || !visible;
     if(document.hidden){cancelAnimationFrame(frameId);frameId=0;}else requestFrame();
   });
-  function frame() {
+  var lastMobileFrame = -Infinity;
+  function frame(timestamp) {
     frameId=0;if(!visible || document.hidden || lost)return;
+    if(coarse && typeof timestamp === "number"){
+      if(timestamp-lastMobileFrame<32){requestFrame();return;}
+      lastMobileFrame=timestamp;
+    }
     var dt=Math.min(clock.getDelta(),0.05);now+=dt;
     if(!paused){aim();target.lerp(goal,1-Math.exp(-dt*4.5));}
     var L=pose();
