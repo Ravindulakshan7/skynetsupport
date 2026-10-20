@@ -182,6 +182,23 @@ $('#copy-order').addEventListener('click',async () => {
   }catch{ $('#copy-order').textContent='Copy unavailable — use WhatsApp'; }
 });
 const menu=$('.menu-toggle');
+const contactDialog=$('#contact-dialog');
+let lastContactTrigger;
+document.querySelectorAll('[data-open-contact]').forEach(trigger=>trigger.addEventListener('click',()=>{
+  lastContactTrigger=trigger;
+  closeMenu();
+  contactDialog.showModal();
+  document.body.classList.add('modal-open');
+}));
+contactDialog.addEventListener('close',()=>{
+  if(!document.querySelector('dialog[open]'))document.body.classList.remove('modal-open');
+  lastContactTrigger?.focus();
+});
+contactDialog.addEventListener('click',event=>{
+  if(event.target.closest('.contact-option')){contactDialog.close();return;}
+  const box=contactDialog.getBoundingClientRect();
+  if(event.target===contactDialog&&(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom))contactDialog.close();
+});
 function closeMenu(){menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open navigation');$('#navigation').classList.remove('open');}
 menu.addEventListener('click',() => {const expanded=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(expanded));menu.setAttribute('aria-label',expanded?'Close navigation':'Open navigation');$('#navigation').classList.toggle('open',expanded);});
 $('#navigation').addEventListener('click',event => {if(event.target.closest('a'))closeMenu();});

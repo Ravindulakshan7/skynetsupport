@@ -1,0 +1,127 @@
+
+  .lh {
+    --lh-bg: #080808;              /* set this to your site background so the section blends in */
+    --lh-glow: 255, 237, 196;      /* light colour (r, g, b) */
+    position: relative; width: 100%; overflow: hidden; isolation: isolate;
+    height: clamp(560px, 54vw, 720px);
+    background: var(--lh-bg);
+    cursor: crosshair; touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .lh canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; z-index: 2; }
+  .lh__pool, .lh__ground { position: absolute; left: 0; top: 0; pointer-events: none; will-change: transform, opacity; }
+  .lh__pool {
+    z-index: 1; border-radius: 50%; mix-blend-mode: screen;
+    background: radial-gradient(circle closest-side,
+      rgba(var(--lh-glow), .65) 0%, rgba(var(--lh-glow), .38) 38%, rgba(var(--lh-glow), .14) 68%, rgba(var(--lh-glow), 0) 100%);
+  }
+  .lh__ground {
+    z-index: 1; border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(var(--lh-glow), .10), rgba(var(--lh-glow), 0));
+  }
+  .lh__items { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; z-index: 3; pointer-events: none; }
+
+  .lh__item { position: absolute; left: 0; top: 0; pointer-events: none; }
+  .lh__float { animation: lh-float var(--dur, 7s) ease-in-out var(--delay, 0s) infinite alternate; }
+  .lh__link {
+    --e: 0;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    pointer-events: auto; text-decoration: none; color: inherit; cursor: pointer;
+    transform: translate(-50%, -50%);
+    outline: none;
+  }
+  .lh__art {
+    display: block;
+    opacity: calc(.22 + .78 * var(--e));
+    filter: brightness(calc(.6 + .55 * var(--e))) saturate(calc(.45 + .85 * var(--e)))
+            drop-shadow(0 0 calc(22px * var(--e)) rgba(var(--lh-glow), calc(.55 * var(--e))));
+    transform: scale(calc(.96 + .12 * var(--e)));
+    transition: transform .25s ease;
+    will-change: opacity, filter, transform;
+  }
+  .lh__link:hover .lh__art, .lh__link:focus-visible .lh__art { transform: scale(1.18) translateY(-3px); }
+  .lh__link:focus-visible .lh__art { outline: 2px solid rgba(var(--lh-glow), .9); outline-offset: 8px; border-radius: 10px; }
+  .lh__isp { width: var(--w, 128px); height: auto; }
+  .lh__soc { width: var(--w, 40px); height: var(--w, 40px); fill: var(--brand, #fff); }
+  .lh__label {
+    font: 500 11px/1 "DM Mono", ui-monospace, Menlo, Consolas, monospace;
+    letter-spacing: .08em; text-transform: uppercase; color: #e1e4e9; white-space: nowrap;
+    opacity: calc(var(--e) * var(--e)); transform: translateY(calc(6px * (1 - var(--e))));
+  }
+  .lh__hint {
+    position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 3; pointer-events: none;
+    font: 500 11px/1 "DM Mono", ui-monospace, Menlo, Consolas, monospace; letter-spacing: .1em; text-transform: uppercase;
+    color: rgba(230, 222, 208, .38); text-align: center; width: max-content; max-width: calc(100% - 32px); white-space: normal;
+  }
+  .lh__nowebgl { position: absolute; inset: 0; display: none; place-items: center; color: #9a9184; font: 14px system-ui, sans-serif; }
+  @keyframes lh-float {
+    from { transform: translate3d(calc(var(--fx, 5px) * -1), calc(var(--fy, 7px) * -1), 0); }
+    to   { transform: translate3d(var(--fx, 5px), var(--fy, 7px), 0); }
+  }
+  .lh__h-m { display: none; }
+  @media (max-width: 720px) {
+    .lh__h-d { display: none; } .lh__h-m { display: inline; }
+    .lh { height: clamp(620px, 150vw, 760px); }
+    .lh__label { font-size: 10px; }
+    .lh__hint { font-size: 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .lh__float { animation: none; } }
+
+/* Storefront integration: readable links, large touch targets, no outer frame. */
+.lamp-experience{width:100%;min-width:0;margin-top:24px}
+.lh{height:clamp(560px,52vw,650px);border:0;border-radius:0;background:var(--lh-bg);outline-offset:-3px}
+.lh__link{min-width:44px;min-height:44px;justify-content:center;padding:5px;text-align:center}
+.lh__art{opacity:calc(.12 + .88 * var(--e));filter:brightness(calc(.45 + .85 * var(--e))) saturate(1) drop-shadow(0 0 calc(18px * var(--e)) rgba(var(--lh-glow),calc(.45 * var(--e))))}
+.lh__label{font-family:Inter,'Noto Sans Sinhala',sans-serif;letter-spacing:.02em;opacity:calc(.10 + .90 * var(--e));transform:none;font-size:10px;line-height:1.65;white-space:normal;max-width:170px}
+.lh__hint{font-family:Inter,'Noto Sans Sinhala',sans-serif;letter-spacing:.02em;text-transform:none;font-size:11px;line-height:1.8;color:#918a80;bottom:5px}
+.lh__nowebgl{pointer-events:none;position:absolute;inset:40% 22%;z-index:4;display:grid;text-align:center;font-family:Inter,'Noto Sans Sinhala',sans-serif;font-size:12px;line-height:2}
+.lh--fallback .lh__art,.lh--fallback .lh__label{opacity:1;filter:none}.lh--fallback .lh__pool,.lh--fallback .lh__ground{display:none}
+.lh[data-motion=paused] .lh__float,.lh[data-visible=false] .lh__float,.lh--fallback .lh__float{animation-play-state:paused}
+.lh-toolbar{display:flex;justify-content:center;align-items:center;gap:12px;padding:12px 0 4px;flex-wrap:wrap}
+.lh-toolbar button{border:1px solid #3c352a;border-radius:999px;background:#15130f;color:#b8ad9a;min-height:44px;padding:10px 18px;font:inherit;font-size:11px;cursor:pointer}
+.lh-toolbar button[aria-pressed=true]{color:#f0c58a;border-color:#8d6c3c}.lh-toolbar button:hover{background:#231e16}
+.lh-toolbar button:disabled{opacity:.5;cursor:default}
+
+/* Text stays left; the interactive lamp occupies the right hero column. */
+.hero.hero-with-lamp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);align-items:center;gap:36px;padding-top:38px;padding-bottom:42px;min-height:620px}
+.hero-with-lamp .hero-copy{display:block;min-width:0}
+.hero-with-lamp .hero-copy>.eyebrow{margin-bottom:22px}
+.hero-with-lamp h1{font-size:clamp(42px,4.8vw,64px);line-height:1.15;margin-bottom:27px;max-width:600px}
+.hero-with-lamp .hero-description{margin-bottom:0}
+.hero-with-lamp .hero-actions{margin-top:30px;gap:24px;flex-wrap:wrap}
+.hero-with-lamp .hero-note{margin-top:28px}
+.hero-with-lamp .lamp-experience{margin:0;justify-self:end;max-width:640px}
+.hero-with-lamp .lh{height:520px}
+.lh[data-layout=compact] .lh__float{--fx:4px!important;--fy:6px!important}
+.lh[data-layout=compact] .lh__link{gap:7px}
+.lh[data-layout=compact] .lh__label{max-width:100%;font-size:9px;line-height:1.5;overflow-wrap:normal}
+.lh__isp{max-width:100%}
+.lh__hint{max-width:calc(100% - 20px);font-size:10px;bottom:2px}
+.lh-toolbar{gap:10px;padding-top:8px}
+.lh-toolbar button{min-height:44px;padding:9px 15px}
+@media(max-width:960px){
+ .hero.hero-with-lamp{grid-template-columns:minmax(0,1fr);gap:20px;padding-top:42px;padding-bottom:30px;min-height:0}
+ .hero-with-lamp .hero-copy{max-width:640px}
+ .hero-with-lamp h1{font-size:clamp(42px,6.5vw,60px)}
+ .hero-with-lamp .lamp-experience{max-width:680px;justify-self:center}
+ .hero-with-lamp .lh{height:550px}
+}
+@media(max-width:600px){
+ .hero.hero-with-lamp{padding-top:32px;padding-bottom:24px;gap:18px}
+ .hero-with-lamp h1{font-size:clamp(37px,10vw,49px);line-height:1.18;margin-bottom:20px;letter-spacing:-1.8px}
+ .hero-with-lamp .hero-description{font-size:13px}
+ .hero-with-lamp .hero-actions{gap:19px;margin-top:22px;flex-direction:row;align-items:center}
+ .hero-with-lamp .hero-note{margin-top:18px}
+ .hero-with-lamp .lh{height:550px}
+ .lh__nowebgl{inset:42% 24%;font-size:11px}
+ .lh__hint{font-size:9px;line-height:1.6}
+ .lh-toolbar button{font-size:11px;min-height:46px}
+}
+@media(max-width:359px){.hero-with-lamp .lh{height:530px}.lh[data-layout=compact] .lh__label{font-size:8px}.hero-with-lamp h1{font-size:37px}}
+
+/* Glow spans the viewport; its transparent edges never meet a section clip. */
+.lh-glow-layer{--lh-glow:255,237,196;position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:1;contain:strict}
+.lh-glow-layer .lh__pool{position:absolute;mix-blend-mode:screen}
+.lh canvas{-webkit-mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent),linear-gradient(to bottom,transparent,#000 8%,#000 92%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent),linear-gradient(to bottom,transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}
+
+.lh__item:has(.lh__link:hover) .lh__float,.lh__item:has(.lh__link:focus-visible) .lh__float{animation-play-state:paused}

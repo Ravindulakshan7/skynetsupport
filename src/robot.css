@@ -1,0 +1,35 @@
+@import "tailwindcss/theme.css" layer(theme) prefix(sp);
+@import "tailwindcss/utilities.css" layer(utilities) prefix(sp) source(none);
+@source "../components/ui";
+@source "./robot.tsx";
+@theme inline {
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+}
+
+#spline-root{--card:0 0% 4%;--card-foreground:0 0% 95%;--muted-foreground:0 0% 65%;width:100%;max-width:490px;height:510px;justify-self:end;min-width:0;font-family:Inter,'Noto Sans Sinhala',sans-serif}
+#spline-root .spline-hero-card{height:100%;width:100%;position:relative;isolation:isolate;border:0;border-radius:0;overflow:hidden;background:transparent;color:#eee;touch-action:pan-y;box-shadow:none}
+#spline-root .spline-react-canvas{position:absolute;inset:0;z-index:1;outline:none}
+#spline-root .spline-react-canvas canvas{display:block;max-width:100%;outline:none}
+#spline-root .spline-react-spotlight{z-index:0}
+#spline-root .spline-topline{position:absolute;top:8px;left:17px;right:8px;display:flex;align-items:center;justify-content:space-between;gap:8px;z-index:3;pointer-events:none;min-height:44px}
+#spline-root .spline-topline>span{font-size:9px;letter-spacing:1px;color:#a8b4cd}
+#spline-root .spline-topline small{font-size:8px;color:#717b8c;margin-left:5px}
+#spline-root button{border:1px solid #3a3e48;border-radius:999px;padding:9px 13px;background:#151820;color:#d6dce9;font:inherit;font-size:11px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;pointer-events:auto}
+#spline-root button:hover{background:#252a36;border-color:#657b9e}
+#spline-root button:focus-visible{outline:2px solid #7fb9fc;outline-offset:3px}
+#spline-root .spline-topline button{border-color:transparent;background:#090b1180;font-size:10px;padding:8px 10px}
+#spline-root .spline-status{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:17px;padding:30px;text-align:center;background:transparent}
+#spline-root .spline-status p{font-size:13px;line-height:2;color:#acb5c7;margin:0;max-width:300px}
+#spline-root .spline-spinner{display:inline-block;flex-shrink:0;width:32px;height:32px;border:2px solid #ffffff17;border-top-color:#8caff0;border-radius:50%;animation:skynet-spline-spin .8s linear infinite}
+#spline-root .spline-bottomline{position:absolute;left:14px;right:14px;bottom:9px;z-index:3;text-align:center;pointer-events:none}
+#spline-root .spline-mouse-hint{font-size:10px;line-height:1.8;color:#8d98ad;background:#07090d99;border-radius:999px;padding:6px 12px}
+#spline-root .spline-touch-toggle{display:none}
+@keyframes skynet-spline-spin{to{transform:rotate(360deg)}}
+@media(max-width:1100px){#spline-root{height:475px}}
+@media(max-width:850px){#spline-root{height:420px}#spline-root .spline-topline{left:12px}#spline-root .spline-topline>span{font-size:8px}#spline-root .spline-topline small{font-size:7px;margin-left:2px}}
+@media(max-width:600px){#spline-root{max-width:420px;height:400px;justify-self:center}#spline-root .spline-topline{left:16px}#spline-root .spline-topline>span{font-size:9px}#spline-root .spline-topline small{font-size:8px}#spline-root .spline-status p{font-size:12px}}
+@media(max-width:359px){#spline-root{height:355px}#spline-root .spline-topline>span{font-size:8px}#spline-root .spline-topline small{font-size:7px}}
+@media(hover:none) and (pointer:coarse){#spline-root .spline-react-canvas{pointer-events:none;touch-action:pan-y}#spline-root .spline-hero-card[data-touch-enabled=true] .spline-react-canvas{pointer-events:auto;touch-action:none}#spline-root .spline-mouse-hint{display:none}#spline-root .spline-touch-toggle{display:inline-flex;background:#111722e8}#spline-root .spline-bottomline{bottom:10px}}
+@media(prefers-reduced-motion:reduce){#spline-root .spline-spinner{animation:none}}

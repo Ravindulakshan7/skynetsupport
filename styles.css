@@ -119,3 +119,20 @@ body{font-family:Inter,'Noto Sans Sinhala',sans-serif;-webkit-font-smoothing:ant
 }
 @media(max-width:359px){.package-grid{grid-template-columns:1fr}.package-card{padding:20px}.package-card h3{min-height:0;font-size:17px}.network-name{font-size:10px}.package-price{font-size:23px}.package-price small{display:inline;margin-left:4px}.package-top{min-height:0}.badge{font-size:8px}.detail-tag{font-size:10px}.package-extra summary{font-size:12px}.package-card .package-select{font-size:12px}.hero h1{font-size:37px}.hero-note .note-divider{display:none}.hero-actions{gap:13px}.hero-actions .button{padding-inline:19px}.hero-slide h2{font-size:17px}.hero-slide p{font-size:11px}.slider-controls{padding-inline:12px}.filter-chip{font-size:9px}.sort-label select{max-width:210px}.strip-inner{gap:14px 10px}.isp-logo{padding:9px;height:49px}.header .brand{width:125px}}
 @media(prefers-reduced-motion:reduce){.hero-slide.is-active{animation:none}.slider-dots button:before{transition:none}}
+
+/* Contact channel chooser, shared by desktop and mobile triggers. */
+#contact-dialog{width:min(430px,calc(100% - 28px));padding:32px 26px}
+#contact-title{font-size:22px;line-height:1.8;letter-spacing:0;margin-bottom:8px}
+#contact-description{font-size:13px;line-height:1.9;margin-bottom:23px}
+.contact-options{display:grid;gap:12px}
+.contact-option{display:flex;align-items:center;gap:14px;padding:17px;border:1px solid #373737;border-radius:18px;background:#191919;min-height:78px}
+.contact-option>span:nth-child(2){flex:1;min-width:0}.contact-option strong{display:block;font-size:15px;font-weight:600}.contact-option small{display:block;font-size:11px;color:#aaa;margin-top:3px}.contact-option>span:last-child{font-size:19px;color:#aaa}
+.contact-icon{width:39px;height:39px;flex-shrink:0;display:grid;place-items:center;border-radius:50%;font-size:16px;font-weight:700;background:#222}
+.contact-whatsapp .contact-icon{color:#70dda4;background:#1c3528}.contact-telegram .contact-icon{color:#84c8ff;background:#1c3042}
+.contact-whatsapp:hover{border-color:#4c8d68;background:#18201b}.contact-telegram:hover{border-color:#4c7a9e;background:#171e25}
+@media(max-width:600px){.mobile-actions button{flex:1;display:flex;align-items:center;justify-content:center;min-height:46px;padding:10px;border:1px solid #444;border-radius:999px;background:#222;color:#ddd;font-size:12px;font-weight:800;text-align:center}.mobile-actions button:hover{background:#303030}#contact-dialog{padding:31px 21px}#contact-title{font-size:20px}.contact-option{padding:15px;gap:12px}.contact-option small{font-size:11px}}
+
+/* The existing carousel remains below the hero. */
+.connection-showcase{min-width:0}.connection-showcase .hero-slider{max-width:440px;margin-inline:auto}.connection-showcase .slider-stage{aspect-ratio:1.25}.package-picker-row{align-items:start}
+@media(max-width:850px){.package-picker-row{align-items:center}.connection-showcase .hero-slider{max-width:500px}.connection-showcase .slider-stage{aspect-ratio:1.35}}
+@media(max-width:600px){.hero{gap:17px}.connection-showcase .hero-slider{max-width:440px}.connection-showcase .slider-stage{aspect-ratio:1.1}.package-picker-row{gap:25px}}

@@ -1,70 +1,52 @@
-# SKYNET website
+# SKYNET website — lamp and social section
 
-Responsive static HTML/CSS/JavaScript website with a black/grey theme, restrained blue actions, clear grouped navigation, network shortcuts, and Inter / Noto Sans Sinhala typography. No installation, database or framework build is required.
+The previous wood-desk lamp widget has been replaced with the owner's supplied skynet-lamp-section.html section. The articulated lamp, warm light pool, beam and floating network/social artwork are retained, with a responsive storefront integration.
 
-## Preview
+## Live files
 
-Open `site.html` directly, or start a local server from this folder:
+- site.html / index.html: storefront and lamp hero with text on the left and the scene on the right.
+- lamp.js: supplied scene geometry/pose/light-reveal logic, real links, keyboard controls and visibility-aware animation.
+- lamp.css: scoped section styling and separate mobile positions; no full-page scroll lock or fixed overlays.
+- assets/lamp-logos/: five original embedded PNGs extracted without modification.
+- assets/vendor/three-r128.min.js and THREE-r128-LICENSE.txt: local rendering dependency and license.
+- app.js / styles.css: existing catalogue, plans, order flow, setup and support features.
 
-```powershell
-python -m http.server 5174 --bind 127.0.0.1
-```
+There is no remote library or Spline dependency in the live page. The older React/Spline development files are inactive and not required for this section.
 
-Then open http://127.0.0.1:5174/ in your browser. Clipboard support works best on localhost or HTTPS.
+## Actual social destinations
 
-## Files and updates
+The template's Facebook/Instagram/YouTube placeholders, sample phone number and sample Telegram link are replaced by existing SKYNET destinations:
 
-- `site.html`: editable page source.
-- `index.html`: identical hosting entry point, refreshed by the packaging script.
-- `styles.css`: dark theme and responsive layouts.
-- `app.js`: package catalogue, SKYNET plans, setup guides, filters and order flow.
-- `analytics.js`: original Google Analytics property and plan/package/contact click events. A contact click is not recorded as a completed purchase.
-- `assets/skynet-logo.png`: original supplied logo, used without alteration.
-- `site.original.html`: original website backup; do not upload this backup.
+- WhatsApp support: https://wa.me/94763813667
+- Telegram support: https://t.me/skynet_int
+- TikTok: https://www.tiktok.com/@skynet_int
+- WhatsApp channel: https://whatsapp.com/channel/0029VbAh1gu3wtbAQf8seo0L
+- Telegram channel: https://t.me/SkyNETCLOUD
 
-Edit `packages` and `plans` in `app.js` to change the catalogue and service prices. Contact links also appear in `site.html` and `app.js`.
+Support/channel links have the correct icons and explicit labels; no new social profiles were invented. External links open in another tab. ISP logos jump to package results and search their provider name; SLT and Dialog include both relevant fixed/router and mobile categories.
 
-## Package information
+## Interaction and responsive layout
 
-All 19 catalogue rows use the owner's supplied package list. Combined Flash options, slash prices and Airtel package numbers remain grouped as supplied. ISP prices and compatibility have not been independently verified. A slash price is not assigned an invented validity period. Unknown prices are not treated as zero. Single-price totals add one listed ISP activation to one SKYNET monthly plan; they are not a recurring monthly bill estimate. Seven-day packages show a separate validity warning.
+Move the mouse anywhere on the page to aim; the lamp keeps tracking outside its hero column and keeps facing a stationary cursor. Touch also aims without blocking scrolling. Click/tap the lamp background to switch the light. Logo clicks follow the link without switching the lamp. The visible control buttons are removed. With the lamp focused, P pauses tracking and idle motion. Reduced-motion users start paused, and floating icons pause too. Hidden/offscreen scenes stop scheduling animation and hide their glow. Touch does not prevent normal vertical scrolling. Keyboard users can focus the section, use arrows/Home to aim and Space to switch the light. Focused logos highlight.
 
-The four SKYNET prices are retained from the original website: 100GB/Rs.200, 200GB/Rs.300, 300GB/Rs.400 and Unlimited/Rs.500, each for one month.
+Desktop places the lamp to the right of the hero text. At 960px and below it stacks underneath the copy. Narrow desktop panels and phones share compact logo positions; scene height, logo sizes and labels adapt independently of the viewport, with at least 44px link targets. The section has no enclosing border. A pointer-transparent fixed viewport layer carries the soft light pool beyond the hero bounds without horizontal page overflow; the canvas beam fades smoothly at its edges. Labels and logos stay dim outside the light pool and brighten when illuminated or keyboard-focused. Without WebGL, links stay positioned, bright and usable, with a status message.
 
-## Hosting
+## Run and deploy
 
-Run `./package-site.ps1` after editing to synchronize `index.html` and create `skynet-site.zip`. Upload the ZIP contents to your static web host's public directory. Keep the `assets` folder next to the HTML files. No Node.js hosting is needed.
+Run node serve.cjs (or npm run preview / start-site.ps1) from the project folder, then open http://127.0.0.1:5173/site.html . The preview uses correct script MIME types and disables local caching. No npm install or React build is needed for the live lamp.
 
-After selecting a real domain, configure its canonical URL, absolute social preview image URL and provider-specific HTTPS/security headers on that host. These have not been invented for the local preview.
+Run ./package-site.ps1 to synchronize index.html and create skynet-site.zip. Upload ZIP contents, retaining your CNAME. Include the complete assets folder plus lamp.js and lamp.css. The synchronized Git copy is at G:/skynet support/github-publish; no commit/push runs automatically.
 
-## Features
+## Existing content
 
-- Responsive dark design, original brand logo, anchor navigation and mobile action bar.
-- Seven network filters, search, sorting, result counts and resettable empty state.
-- Package selection carried into the order dialog; exact plan, network and device in the WhatsApp draft.
-- Separate ISP and SKYNET costs, speed/quota/old-SIM warnings and uncertain-price handling.
-- Copyable order summary for Telegram. The customer sends the message themselves.
-- Device setup tabs with keyboard navigation; mobile menu; native dialog with Escape dismissal and focus restoration.
-- Troubleshooting selector, support message drafts, FAQ and original social channels.
+The 19 ISP rows retain owner-supplied data without independent price/compatibility verification. ISP and SKYNET fees are separate. Slash prices are unchanged and seven-day ISP validity is distinguished from monthly plans. SKYNET prices remain 100GB/Rs.200, 200GB/Rs.300, 300GB/Rs.400 and Unlimited/Rs.500 per month. Confirm conditions before payment.
 
-This is a storefront with customer-initiated chat ordering. It does not process payments, issue configs, measure server latency, monitor live ISP compatibility or create customer accounts. Refund, activation and usage conditions must be confirmed with support.
+The photo slider, provider strip, setup guides, troubleshooting, FAQ and WhatsApp/Telegram chooser are retained. Analytics uses the original property and does not treat contact clicks as sales.
 
 ## Verification
 
-JavaScript syntax checked with Node. Browser checks covered all 19 initial package rows, Airtel and old-SIM filtering, empty-state reset, package-to-plan selection, precise/uncertain order costs, seven-day warnings, generated WhatsApp drafts, copy summary, Escape dismissal, setup tabs and keyboard switching. Desktop and narrow mobile layouts were visually inspected; mobile horizontal overflow was checked. External chats were not sent and payments were not made.
+Tests passed the actual Three.js geometry and pose logic with a stub renderer: ten real destinations, all five provider searches, desktop/mobile positions, document-wide pointer tracking, stationary cursor persistence, glow outside the scene, keyboard light/pause and touch handling, reduced motion and useful WebGL fallback. Storefront regressions passed too. These checks validate code and interaction logic, not GPU rendering, final appearance or physical-phone performance. Browser visual verification remains unavailable in this session.
 
-The later blue/glass theme update passed static CSS structure, font import, colour replacement and packaging checks. Browser access for this later styling pass was blocked by the preview tool, so its updated visual appearance has not been browser-verified. `preview-desktop.jpg` shows the earlier green theme.
+The Node preview helper uses only built-in modules and correct script MIME types; no npm installation is required to serve the already-built site. The optional Python helper remains available.
 
-Latest design revision: black and grey surfaces replace the blue glass styling. The decorative hero illustration is replaced with seven functional network shortcuts. Mobile plans use one readable card per row. Navbar labels and active state are clearer. Current static checks cover HTML anchors/assets, shortcut network IDs, CSS structure, JavaScript syntax and the deployment archive. Browser verification of this design revision is unavailable because preview-tool access was blocked. Earlier screenshots do not show the current revision.
-
-Rounded-shape update: pill buttons and desktop navigation, rounded content cards, search input, device controls, modal and mobile menu. Black/grey colours and blue accents are retained.
-
-
-## Mobile and image-slider update (2026-10-20)
-
-The network selector now sits below the hero/provider strip, ahead of the catalogue. Its shortcuts filter the catalogue and jump to the results heading. The hero uses three illustrative generated photo scenes (one local image asset) with next/previous, dots, pause, keyboard and touch-swipe controls. Autoplay pauses on focus, mouse hover, document hiding and reduced motion. Photos illustrate usage and are not images of SKYNET facilities.
-
-Provider logos come from each provider's official site and retain their original colours on neutral white tiles. See `assets/isp/SOURCES.md`. SLT and Mobitel currently serve the same combined SLT-Mobitel logo; the captions distinguish fixed and mobile service. Logos identify package providers and do not indicate a partnership.
-
-The dark background and rounded shapes are retained, with restrained blue/purple/white heading colours. Mobile filters use four columns / two rows. Package cards use two columns on screens at least 360px wide and one column below 360px. Longer notes expand under Package details; limits and restrictions remain visible. Controls, input font sizes, modal scrolling, bottom safe areas and setup/support layouts have been adjusted for mobile.
-
-Current verification: a real JSDOM DOM run passed catalogue filtering, search/reset, new network shortcuts, carousel navigation/dots/keyboard/autoplay/pause, reduced-motion mode, order drafts and costs, seven-day and old-SIM warnings, setup tabs and menu interactions. Static checks verified source/image/asset integrity, anchors and stylesheet structure. These checks do not replace visual layout testing: current browser preview access remains unavailable, so the latest responsive appearance has not been visually browser-verified. No Git commit or push was made for this update.
+The lamp uses a brighter, slightly warm bulb, beam and spill light. Provider and social icons are dim outside the beam and reveal their brand colours when illuminated, and float slowly on staggered 12–18 second paths. Compact layouts spread them around the lamp with extra clearance. Hover/focus freezes the selected icon; reduced-motion and offscreen pauses remain active.

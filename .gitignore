@@ -16,3 +16,7 @@ Thumbs.db
 
 # Local verification scripts
 .qa/
+
+.vite/
+
+*.tsbuildinfo
