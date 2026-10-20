@@ -57,3 +57,14 @@ The later blue/glass theme update passed static CSS structure, font import, colo
 Latest design revision: black and grey surfaces replace the blue glass styling. The decorative hero illustration is replaced with seven functional network shortcuts. Mobile plans use one readable card per row. Navbar labels and active state are clearer. Current static checks cover HTML anchors/assets, shortcut network IDs, CSS structure, JavaScript syntax and the deployment archive. Browser verification of this design revision is unavailable because preview-tool access was blocked. Earlier screenshots do not show the current revision.
 
 Rounded-shape update: pill buttons and desktop navigation, rounded content cards, search input, device controls, modal and mobile menu. Black/grey colours and blue accents are retained.
+
+
+## Mobile and image-slider update (2026-10-20)
+
+The network selector now sits below the hero/provider strip, ahead of the catalogue. Its shortcuts filter the catalogue and jump to the results heading. The hero uses three illustrative generated photo scenes (one local image asset) with next/previous, dots, pause, keyboard and touch-swipe controls. Autoplay pauses on focus, mouse hover, document hiding and reduced motion. Photos illustrate usage and are not images of SKYNET facilities.
+
+Provider logos come from each provider's official site and retain their original colours on neutral white tiles. See `assets/isp/SOURCES.md`. SLT and Mobitel currently serve the same combined SLT-Mobitel logo; the captions distinguish fixed and mobile service. Logos identify package providers and do not indicate a partnership.
+
+The dark background and rounded shapes are retained, with restrained blue/purple/white heading colours. Mobile filters use four columns / two rows. Package cards use two columns on screens at least 360px wide and one column below 360px. Longer notes expand under Package details; limits and restrictions remain visible. Controls, input font sizes, modal scrolling, bottom safe areas and setup/support layouts have been adjusted for mobile.
+
+Current verification: a real JSDOM DOM run passed catalogue filtering, search/reset, new network shortcuts, carousel navigation/dots/keyboard/autoplay/pause, reduced-motion mode, order drafts and costs, seven-day and old-SIM warnings, setup tabs and menu interactions. Static checks verified source/image/asset integrity, anchors and stylesheet structure. These checks do not replace visual layout testing: current browser preview access remains unavailable, so the latest responsive appearance has not been visually browser-verified. No Git commit or push was made for this update.

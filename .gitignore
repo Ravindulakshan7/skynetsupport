@@ -13,3 +13,6 @@ node_modules/
 !.env.example
 .DS_Store
 Thumbs.db
+
+# Local verification scripts
+.qa/

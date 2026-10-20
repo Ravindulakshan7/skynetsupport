@@ -67,7 +67,7 @@ function renderPackages(){
   $('#empty-state').hidden = visible.length !== 0;
   $('#package-grid').innerHTML = visible.map(pkg => {
     const network = networkFor(pkg);
-    return `<article class="package-card" style="--network-color:${network.color}"><div class="package-top"><span class="network-name"><span class="network-dot"></span>${network.label}</span>${pkg.test ? '<span class="badge warning">TEST FIRST</span>' : pkg.recommended ? '<span class="badge">RECOMMENDED</span>' : ''}</div><h3>${pkg.name}</h3><div class="package-price">${pkg.price ? `Rs.${pkg.price} <small>ISP fee</small>` : 'Existing plan <small>ISP fee applies</small>'}</div><div class="package-details"><span class="detail-tag">${pkg.limit}</span>${pkg.oldSim ? '<span class="detail-tag">Old SIM only</span>' : ''}</div><p class="package-note">${pkg.note}</p><button class="package-select" data-package="${pkg.id}" aria-pressed="${selectedPackage === pkg.id}" aria-label="Select ${escapeHTML(network.name+' '+pkg.name+' '+(pkg.price || 'existing plan'))}"><span>${selectedPackage === pkg.id ? '✓ Selected · View plans' : 'Choose this package'}</span><span aria-hidden="true">↗</span></button></article>`;
+    return `<article class="package-card" style="--network-color:${network.color}"><div class="package-top"><span class="network-name"><span class="network-dot"></span>${network.label}</span>${pkg.test ? '<span class="badge warning">TEST FIRST</span>' : pkg.recommended ? '<span class="badge">RECOMMENDED</span>' : ''}</div><h3>${pkg.name}</h3><div class="package-price">${pkg.price ? `Rs.${pkg.price} <small>ISP fee</small>` : 'Existing plan <small>ISP fee applies</small>'}</div><div class="package-details"><span class="detail-tag">${pkg.limit}</span>${pkg.oldSim ? '<span class="detail-tag">Old SIM only</span>' : ''}</div><details class="package-extra"><summary>Package details</summary><p class="package-note">${pkg.note}</p></details><button class="package-select" data-package="${pkg.id}" aria-pressed="${selectedPackage === pkg.id}" aria-label="Select ${escapeHTML(network.name+' '+pkg.name+' '+(pkg.price || 'existing plan'))}"><span>${selectedPackage === pkg.id ? '✓ Selected · Plans' : 'Select package'}</span><span aria-hidden="true">↗</span></button></article>`;
   }).join('');
 }
 function selectPackage(id){
@@ -188,3 +188,50 @@ $('#navigation').addEventListener('click',event => {if(event.target.closest('a')
 document.addEventListener('keydown',event => {if(event.key==='Escape'&&menu.getAttribute('aria-expanded')==='true'){closeMenu();menu.focus();}});
 document.addEventListener('click',event => {if(!event.target.closest('.header'))closeMenu();});
 if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries => {entries.forEach(entry => {if(!entry.isIntersecting)return;document.querySelectorAll('#navigation a').forEach(link => {const active=link.hash==='#'+entry.target.id;link.classList.toggle('active',active);if(active)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});});},{rootMargin:'-15% 0px -65% 0px',threshold:0});document.querySelectorAll('#home,#packages,#plans,#setup,#support').forEach(section => observer.observe(section));}
+
+// Carousel pauses for keyboard focus, mouse hover, hidden pages and reduced motion.
+const carousel=$('.hero-slider');
+if(carousel){
+  const slides=[...carousel.querySelectorAll('[data-slide]')];
+  const dots=[...carousel.querySelectorAll('[data-slide-to]')];
+  const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+  let current=0,paused=motion.matches,hovered=false,focused=false,slideTimer,pointerStart;
+  function setSlide(index){
+    current=(index+slides.length)%slides.length;
+    slides.forEach((slide,i)=>{slide.hidden=i!==current;slide.classList.toggle('is-active',i===current);});
+    dots.forEach((dot,i)=>dot.setAttribute('aria-pressed',String(i===current)));
+    $('.slide-counter').textContent=`${String(current+1).padStart(2,'0')} / ${String(slides.length).padStart(2,'0')}`;
+  }
+  function schedule(){
+    clearTimeout(slideTimer);
+    if(!paused&&!hovered&&!focused&&!document.hidden&&!motion.matches){slideTimer=setTimeout(()=>{setSlide(current+1);schedule();},6500);}
+  }
+  function navigate(index){setSlide(index);schedule();}
+  function syncPause(){
+    $('#slide-pause').disabled=motion.matches;
+    $('#slide-pause').setAttribute('aria-pressed',String(paused||motion.matches));
+    $('#slide-pause').setAttribute('aria-label',motion.matches?'Slideshow paused: reduced motion':paused?'Play slideshow':'Pause slideshow');
+    $('#slide-pause').textContent=paused||motion.matches?'▷':'Ⅱ';
+    schedule();
+  }
+  dots.forEach(dot=>dot.addEventListener('click',()=>navigate(Number(dot.dataset.slideTo))));
+  $('#slide-prev').addEventListener('click',()=>navigate(current-1));
+  $('#slide-next').addEventListener('click',()=>navigate(current+1));
+  $('#slide-pause').addEventListener('click',()=>{paused=!paused;syncPause();});
+  carousel.addEventListener('pointerenter',event=>{if(event.pointerType==='mouse'){hovered=true;schedule();}});
+  carousel.addEventListener('pointerleave',()=>{hovered=false;schedule();});
+  carousel.addEventListener('focusin',()=>{focused=true;schedule();});
+  carousel.addEventListener('focusout',event=>{focused=carousel.contains(event.relatedTarget);schedule();});
+  carousel.addEventListener('keydown',event=>{if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();navigate(current+(event.key==='ArrowLeft'?-1:1));}});
+  carousel.addEventListener('pointerdown',event=>{if(event.pointerType==='touch')pointerStart={x:event.clientX,y:event.clientY};});
+  carousel.addEventListener('pointerup',event=>{
+    if(!pointerStart||event.pointerType!=='touch')return;
+    const dx=event.clientX-pointerStart.x,dy=event.clientY-pointerStart.y;
+    pointerStart=null;
+    if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy))navigate(current+(dx<0?1:-1));
+  });
+  carousel.addEventListener('pointercancel',()=>{pointerStart=null;});
+  document.addEventListener('visibilitychange',schedule);
+  motion.addEventListener('change',()=>{paused=motion.matches;syncPause();});
+  setSlide(0);syncPause();
+}
