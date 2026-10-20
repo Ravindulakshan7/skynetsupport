@@ -52,3 +52,5 @@ Tests passed the actual Three.js geometry and pose logic with a stub renderer: t
 The Node preview helper uses only built-in modules and correct script MIME types; no npm installation is required to serve the already-built site. The optional Python helper remains available.
 
 The lamp uses a brighter, slightly warm bulb, beam and spill light. Provider and social icons are dim outside the beam and reveal their brand colours when illuminated, and float slowly on staggered 12–18 second paths. Compact layouts spread them around the lamp with extra clearance. Hover/focus freezes the selected icon; reduced-motion and offscreen pauses remain active.
+
+The glass.css layer adds glossy dark surfaces, polished silver button rims and restrained blue selection accents. Backdrop blur is limited to navigation and overlays; mobile panels use static gradients to keep scrolling light. Opaque fallbacks and reduced-transparency preferences are supported.
