@@ -1,0 +1,15 @@
+# Local backups, previews and archives
+site.original.html
+preview-*.jpg
+preview-*.png
+*.zip
+New folder/
+github-publish/
+
+# Dependencies, local settings and credentials
+node_modules/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
