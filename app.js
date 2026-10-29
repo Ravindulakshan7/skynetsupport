@@ -204,7 +204,7 @@ menu.addEventListener('click',() => {const expanded=menu.getAttribute('aria-expa
 $('#navigation').addEventListener('click',event => {if(event.target.closest('a'))closeMenu();});
 document.addEventListener('keydown',event => {if(event.key==='Escape'&&menu.getAttribute('aria-expanded')==='true'){closeMenu();menu.focus();}});
 document.addEventListener('click',event => {if(!event.target.closest('.header'))closeMenu();});
-if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries => {entries.forEach(entry => {if(!entry.isIntersecting)return;document.querySelectorAll('#navigation a').forEach(link => {const active=link.hash==='#'+entry.target.id;link.classList.toggle('active',active);if(active)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});});},{rootMargin:'-15% 0px -65% 0px',threshold:0});document.querySelectorAll('#home,#packages,#plans,#setup,#support').forEach(section => observer.observe(section));}
+// Store navigation is managed by the page router in store.js.
 
 // Carousel pauses for keyboard focus, mouse hover, hidden pages and reduced motion.
 const carousel=$('.hero-slider');
